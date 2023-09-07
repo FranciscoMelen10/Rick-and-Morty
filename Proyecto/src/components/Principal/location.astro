@@ -1,0 +1,33 @@
+---
+let informacion
+try {
+	const response = await fetch("https://rickandmortyapi.com/api/location");
+	informacion = await response.json();
+} catch (error) {
+	console.error(error);
+}
+
+---
+
+<section class="section_location">
+  {
+    informacion.results.map((info) => {
+      return(
+        <h1>{info.name}</h1>
+      )
+    })
+  }
+</section>
+
+<script>
+
+</script>
+
+<style>
+  .section_location {
+    padding: 40vh 0;
+    width: 80%;
+    color: var(--letras);
+    margin: auto;
+  }
+</style>

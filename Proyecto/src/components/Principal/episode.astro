@@ -1,0 +1,32 @@
+---
+let informacion
+try {
+	const response = await fetch("https://rickandmortyapi.com/api/episode");
+	informacion = await response.json();
+} catch (error) {
+	console.error(error);
+}
+---
+
+<section class="section_episode">
+  {
+    informacion.results.map((info) => {
+      return(
+        <h1>{info.name}</h1>
+      )
+    })
+  }
+</section>
+
+<script>
+
+</script>
+
+<style>
+  .section_episode {
+    padding: 40vh 0;
+    width: 80%;
+    color: var(--letras);
+    margin: auto;
+  }
+</style>
