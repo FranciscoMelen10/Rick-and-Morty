@@ -1,0 +1,80 @@
+---
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<button class="cssbuttons-io">
+  <span
+    ><svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      style="fill: rgb(255, 255, 255); --darkreader-inline-fill: #e8e6e3;"
+      data-darkreader-inline-fill=""
+      ><path
+        d="M20 5h-9.586L8.707 3.293A.997.997 0 0 0 8 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2zm-4 9h-3v3h-2v-3H8v-2h3V9h2v3h3v2z"
+      ></path></svg
+    > Show {name}</span
+  >
+</button>
+
+<style>
+  .cssbuttons-io {
+    position: relative;
+    font-family:Get Schwifty;
+    font-weight: 500;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    border-radius: 0.8em;
+    border: none;
+    background: var(--vrd_drk);
+    color: var(--letras);
+    overflow: hidden;
+    height: 80px;
+  }
+
+  .cssbuttons-io svg {
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: 0.5em;
+  }
+
+  .cssbuttons-io span {
+    position: relative;
+    transition: color 0.4s;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8em 1.2em 0.8em 1.05em;
+  }
+
+  .cssbuttons-io::before,
+  .cssbuttons-io::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .cssbuttons-io::before {
+    content: "";
+    background: #000;
+    width: 120%;
+    left: -10%;
+    transform: skew(30deg);
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+  }
+
+  .cssbuttons-io:hover::before {
+    transform: translate3d(100%, 0, 0);
+  }
+
+  .cssbuttons-io:active {
+    transform: scale(0.95);
+  }
+</style>

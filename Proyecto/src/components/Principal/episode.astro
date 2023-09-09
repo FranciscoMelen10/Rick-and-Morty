@@ -1,4 +1,11 @@
 ---
+interface Props {
+  name: string;
+}
+const { name } = Astro.props;
+
+import ContenedorSections from "../contenedor_sections.astro";
+
 let informacion
 try {
 	const response = await fetch("https://rickandmortyapi.com/api/episode");
@@ -8,25 +15,97 @@ try {
 }
 ---
 
-<section class="section_episode">
+<ContenedorSections name={name}>
   {
     informacion.results.map((info) => {
-      return(
-        <h1>{info.name}</h1>
-      )
+      return (
+      <article class="contenedor_episodes" slot="informacion_api">
+        <div class="contendor_imagenes">
+          <img src="../../../public/Fondo episode.jpg " alt="" />
+        </div>
+
+        <div class="info_episodes">
+          <p class="name">{info.name}</p>
+          <p>{info.air_date}</p>
+          <p>{info.episode}</p>
+        </div>
+        <p class="click_more">Click More</p>
+      </article>
+      );
     })
   }
-</section>
+</ContenedorSections>
 
 <script>
 
 </script>
 
 <style>
-  .section_episode {
-    padding: 40vh 0;
-    width: 80%;
-    color: var(--letras);
-    margin: auto;
+  .contenedor_episodes{
+    background-color: var(--bg_hr);
+    border-radius: 20px;
+    width: 600px;
+    height: 220px;
+    position: relative;
+    display: flex;    
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.5s ease all;
+    font-family: "open sans", sans-serif;
+
+  }
+
+  .click_more {
+    position: absolute;
+    background: #00ac7c;
+    height: 100%;
+    width: 80px;
+    transition: all 80ms;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border-radius: 0 10px 10px 0;
+    opacity: 0;
+    right: -40px;
+  }
+
+  .contenedor_episodes:hover .click_more {
+    opacity: 1;
+    right: 0;
+  }
+
+  .contenedor_episodes:hover {
+    cursor: pointer;
+    transform: scale(0.9);
+  }
+
+  .contendor_imagenes{
+    width: 50%;
+    height: 100%;
+  }
+
+  img{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px 0 0 20px; 
+  }
+
+  .info_episodes{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 40%;
+  }
+
+  .name {
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .info_episodes p{
+    width: 50%;
+
   }
 </style>

@@ -1,89 +1,86 @@
 ---
-let informacion
-let color
-try {
-	const response = await fetch("https://rickandmortyapi.com/api/character");
-	informacion = await response.json();
-} catch (error) {
-	console.error(error);
+interface Props {
+  name: string;
 }
+const { name } = Astro.props;
 
+import ContenedorSections from '../contenedor_sections.astro';
+
+let informacion;
+let color;
+try {
+  const response = await fetch("https://rickandmortyapi.com/api/character");
+  informacion = await response.json();
+} catch (error) {
+  console.error(error);
+}
 ---
 
-<section class="section_character">
-  {
-    informacion.results.map((info) => {
-      if (info.status === "Alive") {
-        color = "green"
-      }else{
-        color = "red"
-      }
+<ContenedorSections name={name}>
+{
+  informacion.results.map((info) => {
+    if (info.status === "Alive") {
+      color = "green";
+    } else {
+      color = "red";
+    }
 
-      return(
-        <div class="contenedor_character">
-            <img src={info.image} alt="">
-          <div class="info_character">
-            <p class="name">{info.name}</p>
-            <p>{info.species}</p>
-            <p>{info.origin.name}</p>
-            <p class="status" style={`background-color:${color}`}>{info.status}</p>
-          </div>
-          <p class="click_more">Click More</p>
+    return (
+      <article class="contenedor_character" slot="informacion_api">
+        <img src={info.image} alt="" />
+        <div class="info_character">
+          <p class="name">{info.name}</p>
+          <p>{info.species}</p>
+          <p>{info.origin.name}</p>
+          <p class="status" style={`background-color:${color}`}>
+            {info.status}
+          </p>
         </div>
-        
-      )
-    })
-  }
-</section>
+        <p class="click_more">Click More</p>
+      </article>
+    );
+  })
+}
+</ContenedorSections>
 
-<script>
 
-</script>
+<script></script>
 
 <style>
-  .section_character {
-    padding: 30vh 0;
-    width: 80%;
-    color: var(--letras);
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;    
-    gap: 30px;
-  }
 
-  .contenedor_character{
+
+  .contenedor_character {
     background-color: var(--bg_hr);
     border-radius: 20px;
-    position:relative;
+    position: relative;
     transition: 0.5s ease all;
     font-family: "open sans", sans-serif;
-
   }
 
-  .contenedor_character img{
-    border-radius:20px 20px 0 0;
+  .contenedor_character img {
+    border-radius: 20px 20px 0 0;
   }
 
-  .info_character{
-    margin:10px;
+  .info_character {
+    margin: 20px;
   }
 
-  .status{
+  .status {
     padding: 10px;
     border-radius: 10px;
-    width:fit-content;
-    
+    width: fit-content;
+    font-weight: 700;
+    font-size: 20px;
   }
 
-  .name{
-    font-size:20px;
+  .name {
+    font-size: 20px;
+    font-weight: 800;
   }
 
   .click_more {
     padding-top: 1em;
-    background: #00AC7C;
+    background: #00ac7c;
     text-align: center;
     height: 2.5em;
     width: 100%;
@@ -93,16 +90,18 @@ try {
     border-radius: 0 0 10px 10px;
     opacity: 0;
     margin: 0;
-}
+  }
 
+  .contenedor_character:hover .click_more {
+    opacity: 1;
+  }
 
-.contenedor_character:hover .click_more {
-  opacity: 1;
-}
+  .contenedor_character:hover {
+    cursor: pointer;
+    transform: scale(0.9);
+  }
 
-.contenedor_character:hover {
-  cursor: pointer;
-  transform: scale(0.9);
-}
-
+  .contenedor_boton {
+    text-align: center;
+  }
 </style>

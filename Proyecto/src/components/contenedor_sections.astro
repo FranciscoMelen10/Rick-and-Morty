@@ -1,0 +1,40 @@
+---
+interface Props {
+  name: string;
+}
+const { name } = Astro.props;
+
+import BotonMore from "./boton_more.astro";
+---
+
+<section class="contenedor_principal">
+  <div class="contenedor_sections">
+    <slot name="informacion_api" />
+  </div>
+
+  <div class="contenedor_boton">
+    <BotonMore name={name} />
+  </div>
+</section>
+
+<style>
+    .contenedor_principal{
+        padding: 30vh 0;
+    }
+
+  .contenedor_sections {
+    width: 80%;
+    color: var(--letras);
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+.contenedor_boton{
+    margin: 10vh 0;
+    text-align: center;
+}
+</style>
