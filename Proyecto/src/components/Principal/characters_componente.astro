@@ -1,10 +1,12 @@
 ---
+
 interface Props {
   name: string;
 }
 const { name } = Astro.props;
 
 import ContenedorSections from '../contenedor_sections.astro';
+
 
 let informacion;
 let color;
@@ -26,17 +28,15 @@ try {
     }
 
     return (
-      <article class="contenedor_character" slot="informacion_api">
+      <article class="contenedor_character" slot="informacion_api"  id={info.id}>
         <img src={info.image} alt="" />
-        <div class="info_character">
+        <section class="info_character">
           <p class="name">{info.name}</p>
-          <p>{info.species}</p>
-          <p>{info.origin.name}</p>
           <p class="status" style={`background-color:${color}`}>
             {info.status}
           </p>
-        </div>
-        <p class="click_more">Click More</p>
+        </section>
+        <a href=`../../Character/${info.id}` class="click_more">Click More</a>
       </article>
     );
   })
@@ -44,7 +44,9 @@ try {
 </ContenedorSections>
 
 
-<script></script>
+<script>
+
+</script>
 
 <style>
 
@@ -61,10 +63,6 @@ try {
     border-radius: 20px 20px 0 0;
   }
 
-  .info_character {
-    margin: 20px;
-  }
-
   .status {
     padding: 10px;
     border-radius: 10px;
@@ -78,22 +76,37 @@ try {
     font-weight: 800;
   }
 
+  .info_character{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .info_character p{
+    margin: 10px;
+  }
+
   .click_more {
-    padding-top: 1em;
+    padding: 1em 0;
     background: #00ac7c;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    color: var(--letras);
+    justify-content: center;
     height: 2.5em;
     width: 100%;
+    text-decoration: none;
     transition: all 80ms;
     font-weight: 600;
     text-transform: uppercase;
     border-radius: 0 0 10px 10px;
-    opacity: 0;
     margin: 0;
+    opacity: 0;
   }
 
   .contenedor_character:hover .click_more {
     opacity: 1;
+    text-decoration: underline;
   }
 
   .contenedor_character:hover {

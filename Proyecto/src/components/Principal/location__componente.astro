@@ -8,40 +8,40 @@ import ContenedorSections from "../contenedor_sections.astro";
 
 let informacion
 try {
-	const response = await fetch("https://rickandmortyapi.com/api/episode");
+	const response = await fetch("https://rickandmortyapi.com/api/location");
 	informacion = await response.json();
 } catch (error) {
 	console.error(error);
 }
+
 ---
 
 <ContenedorSections name={name}>
   {
     informacion.results.map((info) => {
       return (
-      <article class="contenedor_episodes" slot="informacion_api">
+      <article class="contenedor_locations" slot="informacion_api">
         <div class="contendor_imagenes">
-          <img src="../../../public/Fondo episode.jpg " alt="" />
+          <img src="../../../public/Fondo locations.png " alt="" />
         </div>
 
-        <div class="info_episodes">
+        <div class="info_locations">
           <p class="name">{info.name}</p>
-          <p>{info.air_date}</p>
-          <p>{info.episode}</p>
+          <p>{info.type}</p>
+          <p>{info.dimension}</p>
         </div>
-        <p class="click_more">Click More</p>
+        <a href="" class="click_more">Click More</a>
       </article>
+
       );
     })
   }
 </ContenedorSections>
 
-<script>
 
-</script>
 
 <style>
-  .contenedor_episodes{
+  .contenedor_locations{
     background-color: var(--bg_hr);
     border-radius: 20px;
     width: 600px;
@@ -69,14 +69,20 @@ try {
     border-radius: 0 10px 10px 0;
     opacity: 0;
     right: -40px;
+    text-decoration: none;
+    color: var(--letras);
+
+
   }
 
-  .contenedor_episodes:hover .click_more {
+  .contenedor_locations:hover .click_more {
     opacity: 1;
     right: 0;
+    text-decoration: underline;
+
   }
 
-  .contenedor_episodes:hover {
+  .contenedor_locations:hover {
     cursor: pointer;
     transform: scale(0.9);
   }
@@ -92,7 +98,7 @@ try {
     border-radius: 20px 0 0 20px; 
   }
 
-  .info_episodes{
+  .info_locations{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -100,12 +106,13 @@ try {
   }
 
   .name {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 800;
   }
 
-  .info_episodes p{
+  .info_locations p{
     width: 50%;
 
   }
+
 </style>
