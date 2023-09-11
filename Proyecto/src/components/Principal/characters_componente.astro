@@ -18,7 +18,7 @@ try {
 }
 ---
 
-<ContenedorSections name={name}>
+<ContenedorSections name={name} show={true}>
 {
   informacion.results.map((info) => {
     if (info.status === "Alive") {
@@ -29,7 +29,7 @@ try {
 
     return (
       <article class="contenedor_character" slot="informacion_api"  id={info.id}>
-        <img src={info.image} alt="" />
+        <img src={info.image} alt=`Personaje_${info.name}` />
         <section class="info_character">
           <p class="name">{info.name}</p>
           <p class="status" style={`background-color:${color}`}>

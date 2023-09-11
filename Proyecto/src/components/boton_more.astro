@@ -7,8 +7,8 @@ const { name } = Astro.props;
 ---
 
 <button class="cssbuttons-io">
-  <span
-    ><svg
+  <a href=`../${name}`
+      ><svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -18,7 +18,7 @@ const { name } = Astro.props;
       ><path
         d="M20 5h-9.586L8.707 3.293A.997.997 0 0 0 8 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2zm-4 9h-3v3h-2v-3H8v-2h3V9h2v3h3v2z"
       ></path></svg
-    > Show {name}</span
+    > Show all {name}s</a
   >
 </button>
 
@@ -43,12 +43,14 @@ const { name } = Astro.props;
     margin-right: 0.5em;
   }
 
-  .cssbuttons-io span {
+  .cssbuttons-io a {
     position: relative;
     transition: color 0.4s;
     display: inline-flex;
     align-items: center;
     padding: 0.8em 1.2em 0.8em 1.05em;
+    color: var(--letras);
+    text-decoration: none;
   }
 
   .cssbuttons-io::before,

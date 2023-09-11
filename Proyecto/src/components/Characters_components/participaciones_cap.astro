@@ -1,60 +1,43 @@
 ---
 interface Props {
-  name: string;
-  url:string;
+  url: string;
 }
-const { name,url } = Astro.props;
 
-import ContenedorSections from "../contenedor_sections.astro";
-
-let informacion
+const { url } = Astro.props;
+let informacion;
 try {
-	const response = await fetch(`${url}`);
-	informacion = await response.json();
+  const response = await fetch(`${url}`);
+  informacion = await response.json();
 } catch (error) {
-	console.error(error);
+  console.error(error);
 }
-
 ---
 
-<ContenedorSections name={name} show={true}>
-  {
-    informacion.results.map((info) => {
-      return (
-      <article class="contenedor_episodes" slot="informacion_api">
-        <div class="contendor_imagenes">
-          <img src="../../../public/Fondo episode.jpg " alt="" />
-        </div>
+<article class="contenedor_episodes" slot="informacion_api">
+  <div class="contendor_imagenes">
+    <img src="../../../public/Fondo episode.jpg " alt="" />
+  </div>
 
-        <section class="info_episodes">
-          <p class="name">{info.name}</p>
-          <p>{info.air_date}</p>
-          <p>{info.episode}</p>
-        </section>
-        <a href="" class="click_more">Click More</a>
-      </article>
-      );
-    })
-  }
-</ContenedorSections>
-
-<script>
-
-</script>
+  <section class="info_episodes">
+    <p class="name">{informacion.name}</p>
+    <p>{informacion.air_date}</p>
+    <p>{informacion.episode}</p>
+  </section>
+  <a href="" class="click_more">Click More</a>
+</article>
 
 <style>
-  .contenedor_episodes{
+  .contenedor_episodes {
     background-color: var(--bg_hr);
     border-radius: 20px;
     width: 600px;
     height: 220px;
     position: relative;
-    display: flex;    
+    display: flex;
     align-items: center;
     justify-content: space-between;
     transition: 0.5s ease all;
     font-family: "open sans", sans-serif;
-
   }
 
   .click_more {
@@ -73,14 +56,12 @@ try {
     right: -40px;
     text-decoration: none;
     color: var(--letras);
-
   }
 
   .contenedor_episodes:hover .click_more {
     opacity: 1;
     right: 0;
     text-decoration: underline;
-
   }
 
   .contenedor_episodes:hover {
@@ -88,18 +69,18 @@ try {
     transform: scale(0.9);
   }
 
-  .contendor_imagenes{
+  .contendor_imagenes {
     width: 50%;
     height: 100%;
   }
 
-  img{
+  img {
     width: 100%;
     height: 100%;
-    border-radius: 20px 0 0 20px; 
+    border-radius: 20px 0 0 20px;
   }
 
-  .info_episodes{
+  .info_episodes {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -111,8 +92,7 @@ try {
     font-weight: 800;
   }
 
-  .info_episodes p{
+  .info_episodes p {
     width: 50%;
-
   }
 </style>
