@@ -1,0 +1,105 @@
+---
+interface Props {
+  next_page: string;
+  last_page: string;
+}
+
+const { next_page, last_page } = Astro.props;
+
+let existe_next = false;
+
+if (next_page !== null) {
+  existe_next = true;
+}
+
+let existe_last = false;
+
+if (last_page !== null) {
+  existe_last = true;
+}
+---
+
+
+
+<div>
+    {
+      existe_last && 
+        <a href={last_page} class="links">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+          height="40"
+          viewBox="0 0 24 24"
+            style="fill: rgb(0, 0, 0); --darkreader-inline-fill: #e8e6e3;"
+            data-darkreader-inline-fill=""
+          >
+            <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
+          </svg>
+        </a>
+    }
+    
+    {
+      existe_next && 
+      <a href={next_page} class="links">
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          style="fill: rgb(0, 0, 0); --darkreader-inline-fill: #e8e6e3;"
+          data-darkreader-inline-fill=""
+          ><path
+            d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+          ></path></svg>
+        </a>
+    }
+</div>
+
+<style>
+  div{
+    background: var(--bg_hr);
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .links {
+    padding: 2em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #2c9caf;
+    transition: all 1000ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #2c9caf;
+    margin:10px;
+  }
+
+  .links:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+    outline: 2px solid #70bdca;
+    box-shadow: 4px 5px 17px -4px #268391;
+  }
+
+  .links::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #2c9caf;
+    z-index: -1;
+    transition: width 0.5s;
+  }
+
+  .links:hover::before {
+    width: 100%;
+  }
+</style>

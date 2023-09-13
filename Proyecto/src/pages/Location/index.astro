@@ -1,8 +1,32 @@
 ---
 import Principal from "../../layout/principal.astro";
+import LocationComponente from "../../components/Principal/location__componente.astro";
+import Paginacion from "../../components/paginacion.astro";
 
+let informacion;
+try {
+  const response = await fetch("https://rickandmortyapi.com/api/location");
+  informacion = await response.json();
+} catch (error) {
+  console.error(error);
+}
 ---
 
 <Principal>
-    <p>Locations</p>
+  <LocationComponente name="Location" url="https://rickandmortyapi.com/api/location" view={false} />
+  <article>
+    <Paginacion
+      next_page={informacion.info.next}
+      last_page={informacion.info.prev}
+      slot="paginacion"
+    />
+  </article>
 </Principal>
+
+<style>
+  article {
+    display: flex;
+    justify-content: center;
+    margin: -20vh 0 30vh 0;
+  }
+</style>

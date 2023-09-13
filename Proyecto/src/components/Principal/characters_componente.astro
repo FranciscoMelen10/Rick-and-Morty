@@ -2,23 +2,24 @@
 
 interface Props {
   name: string;
+  url: string;
+  view:boolean;
 }
-const { name } = Astro.props;
+const { name,url,view } = Astro.props;
 
 import ContenedorSections from '../contenedor_sections.astro';
-
 
 let informacion;
 let color;
 try {
-  const response = await fetch("https://rickandmortyapi.com/api/character");
+  const response = await fetch(`${url}`);
   informacion = await response.json();
 } catch (error) {
   console.error(error);
 }
 ---
 
-<ContenedorSections name={name} show={true}>
+<ContenedorSections name={name} show={view}>
 {
   informacion.results.map((info) => {
     if (info.status === "Alive") {

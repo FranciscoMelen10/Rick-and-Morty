@@ -1,0 +1,36 @@
+---
+import Principal from "../../../layout/principal.astro";
+const {page} = Astro.props
+
+export async function getStaticPaths({ paginate }) {
+  let api = "https://rickandmortyapi.com/api/character"
+
+  let links_api = []
+  let links
+
+for (let index = 1; index <= 42; index++) {
+  links = {pagina : api.concat(`/${index}`)}
+  links_api.push(links)
+}
+
+  // Genera páginas para nuestro array de astronautas, con 2 elementos por página
+  return paginate(links_api, { pageSize: 1 });
+}
+
+console.log(page.data[0].pagina)
+console.log(page)
+
+// const {seccion} = Astro.params
+
+// let informacion;
+// try {
+//   const response = await fetch(
+//     "https://rickandmortyapi.com/api/character/" + seccion
+//   );
+//   informacion = await response.json();
+// } catch (error) {
+//   console.error(error);
+// }
+
+---
+

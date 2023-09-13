@@ -1,0 +1,32 @@
+---
+import Principal from "../../layout/principal.astro";
+import EpisodeComponente from "../../components/Principal/episode__componente.astro";
+
+export async function getStaticPaths() {
+  const data = await fetch("https://rickandmortyapi.com/api/episode").then((response) => response.json()
+  );
+  return data.results.map((post) => {
+    return {
+      params: { episode: post.id },
+      props: { post },
+    };
+  });
+}
+
+const {episode} = Astro.params
+
+let informacion;
+try {
+  const response = await fetch(
+    "https://rickandmortyapi.com/api/episode/" + episode
+  );
+  informacion = await response.json();
+} catch (error) {
+  console.error(error);
+}
+
+---
+
+<Principal>
+  <EpisodeComponente name="Episode" url="https://rickandmortyapi.com/api/episode" view={false}/>
+</Principal>
