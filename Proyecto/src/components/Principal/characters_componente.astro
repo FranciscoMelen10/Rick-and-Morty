@@ -30,14 +30,16 @@ try {
 
     return (
       <article class="contenedor_character" slot="informacion_api"  id={info.id}>
-        <img src={info.image} alt=`Personaje_${info.name}` />
+        <img src={info.image} alt=`Personaje_${info.name}` transition:name=
+        `imagen_${info.id}`/>
         <section class="info_character">
-          <p class="name">{info.name}</p>
-          <p class="status" style={`background-color:${color}`}>
-            {info.status}
+          <p class="name" transition:name=
+          `name_${info.id}`>{info.name}</p>
+          <p class="status" style={`background-color:${color}`} >
+            {info.status} 
           </p>
         </section>
-        <a href=`../../Character/${info.id}` class="click_more">Click More</a>
+        <a href=`../../Character/Individual/${info.id}` class="click_more">Click More</a>
       </article>
     );
   })
@@ -58,6 +60,8 @@ try {
     position: relative;
     transition: 0.5s ease all;
     font-family: "open sans", sans-serif;
+    width: 300px;
+    height: 450px;
   }
 
   .contenedor_character img {
@@ -81,6 +85,8 @@ try {
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: space-evenly;
+    height: 150px;
   }
 
   .info_character p{
@@ -100,9 +106,12 @@ try {
     transition: all 80ms;
     font-weight: 600;
     text-transform: uppercase;
+    bottom: 0;
     border-radius: 0 0 10px 10px;
     margin: 0;
+    position: absolute;
     opacity: 0;
+
   }
 
   .contenedor_character:hover .click_more {

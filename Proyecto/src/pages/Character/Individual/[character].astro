@@ -1,29 +1,19 @@
 ---
-import Principal from "../../layout/principal.astro";
-import Participaciones from "../../components/participaciones_cap.astro";
+import Principal from "../../../layout/principal.astro";
+import Participaciones from "../../../components/participaciones_cap.astro";
+import Boton from "../../../components/boton.astro";
 
 const {character} = Astro.params
-  let indice = 20
-  let key = 1;
-
-  //Función para identificar en que página se encuentra la consulta de la api
-  while (Number(character) > indice){
-      
-    if(Number(character) > indice){
-        indice += 20
-        key += 1
-    }
-  }
 
 export async function getStaticPaths() {
-  const data = await fetch("https://rickandmortyapi.com/api/character").then((response) => response.json()
-  );
-  return data.results.map((post) => {
-    return {
-      params: { character: post.id },
-      props: { post },
-    };
-  });
+  let api_array = []
+  let tempo 
+  const data = await fetch("https://rickandmortyapi.com/api/character").then((response) => response.json());
+  for (let index = 1; index < data.info.count ; index++) {
+    tempo ={params: { character: "" + index }}
+    api_array.push(tempo)
+  }
+  return api_array
 }
 
 let informacion;
@@ -47,14 +37,16 @@ if (informacion.status === "Alive") {
   <article class="contenedor_character">
     <div class="informacion_character">
       <picture>
-        <img src={informacion.image} alt="" />
+        <img src={informacion.image} alt="" transition:name=
+        `imagen_${informacion.id}`/>
       </picture>
       <section class="informacion_principal">
         <p class="status" style={`background-color:${color}`}>
           {informacion.status}
         </p>
-        <p class="text">Name: <span>{informacion.name}</span></p>
-        <p class="text">status: <span>{informacion.status}</span></p>
+        <p class="text">Name: <span transition:name=
+          `name_${informacion.id}`>{informacion.name}</span></p>
+        <p class="text">status: <span >{informacion.status}</span></p>
         <p class="text">Species: <span>{informacion.species}</span></p>
         <p class="text">Gender: <span>{informacion.gender}</span></p>
         <p class="text">Location: <span>{informacion.location.name}</span></p>
@@ -76,12 +68,13 @@ if (informacion.status === "Alive") {
         }
       </div>
     </div>
+    <Boton name="Character" />
   </article>
 </Principal>
 
 <style>
   .contenedor_paticipaciones {
-    padding: 30vh 0 0 0;
+    padding: 20vh 0 0 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,7 +82,7 @@ if (informacion.status === "Alive") {
   }
 
   article {
-    padding: 30vh 0;
+    padding: 20vh 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,7 +94,7 @@ if (informacion.status === "Alive") {
   }
 
   .informacion_character {
-    width: 60%;
+    width: 70%;
     display: flex;
     margin: 0;
     padding: 0;
@@ -165,5 +158,20 @@ if (informacion.status === "Alive") {
     font-size: 36px;
     font-family: sans-serif;
     font-weight: 800;
+    color: var(--letras);
+  }
+
+  @media screen and (max-width: 980px) {
+    .informacion_character{
+      flex-direction: column;
+    }
+
+    picture{
+      width: 100%;
+    }
+
+    img{
+      border-radius: 20px 20px 0 0;
+    }
   }
 </style>

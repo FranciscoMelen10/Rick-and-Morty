@@ -8,13 +8,13 @@ const { next_page, last_page } = Astro.props;
 
 let existe_next = false;
 
-if (next_page !== null) {
+if (next_page !== undefined) {
   existe_next = true;
 }
 
 let existe_last = false;
 
-if (last_page !== null) {
+if (last_page !== undefined) {
   existe_last = true;
 }
 ---
@@ -30,7 +30,7 @@ if (last_page !== null) {
             width="40"
           height="40"
           viewBox="0 0 24 24"
-            style="fill: rgb(0, 0, 0); --darkreader-inline-fill: #e8e6e3;"
+            style="fill: rgb(255, 255, 255); --darkreader-inline-fill: #e8e6e3;"
             data-darkreader-inline-fill=""
           >
             <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
@@ -46,7 +46,7 @@ if (last_page !== null) {
           width="40"
           height="40"
           viewBox="0 0 24 24"
-          style="fill: rgb(0, 0, 0); --darkreader-inline-fill: #e8e6e3;"
+          style="fill: rgb(255, 255, 255); --darkreader-inline-fill: #e8e6e3;"
           data-darkreader-inline-fill=""
           ><path
             d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
@@ -57,7 +57,6 @@ if (last_page !== null) {
 
 <style>
   div{
-    background: var(--bg_hr);
     display: flex;
     align-items: center;
     padding: 20px;
@@ -65,26 +64,26 @@ if (last_page !== null) {
   }
 
   .links {
-    padding: 2em;
+    background: var(--bg_hr);
     border: none;
     border-radius: 5px;
     font-weight: bold;
     letter-spacing: 5px;
     text-transform: uppercase;
-    color: #2c9caf;
+    color: var(--vrd_drk);
     transition: all 1000ms;
     font-size: 15px;
     position: relative;
     overflow: hidden;
-    outline: 2px solid #2c9caf;
+    outline: 2px solid var(--vrd_drk);
     margin:10px;
   }
 
   .links:hover {
     color: #ffffff;
     transform: scale(1.1);
-    outline: 2px solid #70bdca;
-    box-shadow: 4px 5px 17px -4px #268391;
+    outline: 2px solid var(--vrd_drk);
+    box-shadow: 4px 5px 17px -4px var(--vrd_drk);
   }
 
   .links::before {
@@ -94,7 +93,7 @@ if (last_page !== null) {
     top: 0;
     width: 0;
     height: 100%;
-    background-color: #2c9caf;
+    background: var(--vrd_drk);
     z-index: -1;
     transition: width 0.5s;
   }

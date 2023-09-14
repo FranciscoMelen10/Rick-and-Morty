@@ -5,7 +5,7 @@ interface Props {
 }
 const { name, show } = Astro.props;
 
-import BotonMore from "./boton_more.astro";
+import BotonMore from "./boton.astro";
 ---
 
 <section class="contenedor_principal">
@@ -21,7 +21,7 @@ import BotonMore from "./boton_more.astro";
 
 <style>
   .contenedor_principal {
-    padding: 20vh 0;
+    padding: 20vh 0 0 0;
   }
 
   .contenedor_sections {
@@ -36,7 +36,7 @@ import BotonMore from "./boton_more.astro";
   }
 
   .contenedor_boton {
-    margin: 10vh 0;
+    margin: 5vh 0;
     text-align: center;
   }
 
@@ -46,5 +46,7 @@ import BotonMore from "./boton_more.astro";
     font-weight: 800;
     text-align: center;
     margin-bottom: 10vh;
+    color: var(--letras);
   }
+
 </style>

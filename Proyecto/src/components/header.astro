@@ -16,7 +16,7 @@
       <p>Home</p>
     </a>
 
-    <a  href="../Character" class="links_nav">
+    <a  href="/Character" class="links_nav">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="30"
@@ -32,7 +32,7 @@
       <p>Characters</p>
     </a>
 
-    <a href="../Location" class="links_nav">
+    <a href="/Location" class="links_nav">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="30"
@@ -48,7 +48,7 @@
       <p>Locations</p>
     </a>
 
-    <a  href="../Episode" class="links_nav">
+    <a  href="/Episode" class="links_nav">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="30"
@@ -70,7 +70,6 @@
   header {
     position: fixed;
     background-color: var(--bg_hr);
-    color: var(--letras);
     width: 100%;
     height: 100px;
     display: flex;
@@ -91,6 +90,7 @@
     width: 70%;
     display: flex;
     justify-content: space-around;
+    
   }
 
   nav p {
@@ -99,6 +99,8 @@
     text-align: center;
     border-radius: 20px;
     margin: auto;
+    padding: 10px;
+
   }
 
   .links_nav {
@@ -110,7 +112,7 @@
     width: fit-content;
     height: fit-content;
     padding: 5px;
-    border-radius: 30px;
+    border-radius: 10px;
   }
 
   .links_nav svg {
@@ -119,6 +121,6 @@
 
   .links_nav:hover {
     background-color: var(--vrd_drk);
-    transform: scale(0.9);
+    transform: scale(0.8);
   }
 </style>
