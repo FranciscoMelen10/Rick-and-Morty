@@ -13,31 +13,33 @@ try {
 }
 ---
 
-<article class="contenedor_episodes" slot="informacion_api">
-  <div class="contendor_imagenes">
-    <img src="../../../public/Fondo episode.jpg " alt="" />
-  </div>
+<article class="contenedor_locations" slot="informacion_api">
+    <div class="contendor_imagenes">
+      <img src="../../../public/Fondo locations.png " alt={informacion.name} transition:name=`imagen_location_${informacion.id}` />
+    </div>
 
-  <section class="info_episodes">
-    <p class="name">{informacion.name}</p>
-    <p>{informacion.air_date}</p>
-    <p>{informacion.episode}</p>
-  </section>
-  <a href="" class="click_more">Click More</a>
-</article>
+    <div class="info_locations">
+      <p class="name">{informacion.name}</p>
+      <p>{informacion.type}</p>
+      <p>{informacion.dimension}</p>
+    </div>
+    <a href={`../../Location/Individual/${informacion.id}`} class="click_more">Click More</a>
+  </article>
+
 
 <style>
-  .contenedor_episodes {
+  .contenedor_locations{
     background-color: var(--bg_hr);
     border-radius: 20px;
     width: 600px;
     height: 220px;
     position: relative;
-    display: flex;
+    display: flex;    
     align-items: center;
     justify-content: space-between;
     transition: 0.5s ease all;
     font-family: "open sans", sans-serif;
+
   }
 
   .click_more {
@@ -53,46 +55,54 @@ try {
     text-align: center;
     border-radius: 0 10px 10px 0;
     opacity: 0;
-    right: -40px;
+    right: 0;
     text-decoration: none;
     color: var(--letras);
+    transition: 0.5s ease all;
+
+
+
   }
 
-  .contenedor_episodes:hover .click_more {
+  .contenedor_locations:hover .click_more {
     opacity: 1;
-    right: 0;
     text-decoration: underline;
+
   }
 
-  .contenedor_episodes:hover {
+  .contenedor_locations:hover {
     cursor: pointer;
     transform: scale(0.9);
   }
 
-  .contendor_imagenes {
+  .contendor_imagenes{
     width: 50%;
     height: 100%;
   }
 
-  img {
+  img{
     width: 100%;
     height: 100%;
-    border-radius: 20px 0 0 20px;
+    border-radius: 20px 0 0 20px; 
   }
 
-  .info_episodes {
+  .info_locations{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     width: 40%;
+    margin: 20px;  
   }
 
   .name {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 800;
   }
 
-  .info_episodes p {
-    width: 50%;
+  @media screen and (max-width: 650px) {
+    .name {
+    font-size: 10px;
   }
+}
+
 </style>

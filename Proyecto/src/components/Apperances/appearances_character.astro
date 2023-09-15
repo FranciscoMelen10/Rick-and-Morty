@@ -1,14 +1,9 @@
 ---
-
 interface Props {
-  name: string;
   url: string;
-  view:boolean;
 }
-const { name,url,view } = Astro.props;
 
-import ContenedorSections from '../contenedor_sections.astro';
-
+const { url } = Astro.props;
 let informacion;
 let color;
 try {
@@ -17,41 +12,39 @@ try {
 } catch (error) {
   console.error(error);
 }
+
+if (informacion.status === "Alive") {
+  color = "green";
+} else {
+  color = "red";
+}
 ---
 
-<ContenedorSections name={name} show={view}>
-{
-  informacion.results.map((info) => {
-    if (info.status === "Alive") {
-      color = "green";
-    } else {
-      color = "red";
-    }
-
-    return (
-      <article class="contenedor_character" slot="informacion_api"  id={info.id}>
-        <img src={info.image} alt={`Personaje_${info.name}`} transition:name={`imagen_${info.id}`} />
-        <section class="info_character">
-          <p class="name" transition:name={`name_${info.id}`} >{info.name}</p>
-          <p class="status" style={`background-color:${color}`} >
-            {info.status} 
-          </p>
-        </section>
-        <a href= {`../../Character/Individual/${info.id}`} class="click_more">Click More</a>
-      </article>
-    );
-  })
-}
-</ContenedorSections>
-
-
-<script>
-
-</script>
+  <article
+    class="contenedor_character"
+    slot="informacion_api"
+    id={informacion.id}
+  >
+    <img
+      src={informacion.image}
+      alt=`Personaje_${informacion.name}`
+      transition:name=`imagen_${informacion.id}`
+    />
+    <section class="info_character">
+      <p class="name" transition:name=`name_${informacion.id}`>
+        {informacion.name}
+      </p>
+      <p class="status" style={`background-color:${color}`}>
+        {informacion.status}
+      </p>
+    </section>
+    <a href=`../../Character/Individual/${informacion.id}` class="click_more"
+      >Click More</a
+    >
+  </article>
 
 <style>
-
-
+  
   .contenedor_character {
     background-color: var(--bg_hr);
     border-radius: 20px;

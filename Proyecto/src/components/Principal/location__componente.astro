@@ -24,7 +24,7 @@ try {
       return (
       <article class="contenedor_locations" slot="informacion_api">
         <div class="contendor_imagenes">
-          <img src="../../../public/Fondo locations.png " alt="" />
+          <img src="../../../public/Fondo locations.png " alt={info.name} transition:name={`imagen_location_${info.id}`}/>
         </div>
 
         <div class="info_locations">
@@ -32,7 +32,7 @@ try {
           <p>{info.type}</p>
           <p>{info.dimension}</p>
         </div>
-        <a href="" class="click_more">Click More</a>
+        <a href={`../../Location/Individual/${info.id}`} class="click_more">Click More</a>
       </article>
 
       );
@@ -106,6 +106,7 @@ try {
     flex-direction: column;
     justify-content: space-around;
     width: 40%;
+    margin: 20px;  
   }
 
   .name {
@@ -113,9 +114,10 @@ try {
     font-weight: 800;
   }
 
-  .info_locations p{
-    width: 50%;
-
+  @media screen and (max-width: 650px) {
+    .name {
+    font-size: 10px;
   }
+}
 
 </style>

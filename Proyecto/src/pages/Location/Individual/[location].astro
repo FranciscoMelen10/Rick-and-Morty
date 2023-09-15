@@ -1,80 +1,73 @@
 ---
-import Principal from "../../../layout/principal.astro";
-import Appearances_episode from "../../../components/Apperances/appearances_episode.astro";
 import Boton from "../../../components/boton.astro";
-
-const {character} = Astro.params
+import Principal from "../../../layout/principal.astro";
+import Appearences_Character from "../../../components/Apperances/appearances_character.astro"
 
 export async function getStaticPaths() {
   let api_array = []
   let tempo 
-  const data = await fetch("https://rickandmortyapi.com/api/character").then((response) => response.json());
+  const data = await fetch("https://rickandmortyapi.com/api/location").then((response) => response.json());
   for (let index = 1; index < data.info.count ; index++) {
-    tempo ={params: { character: "" + index }}
+    tempo ={params: { location: "" + index }}
     api_array.push(tempo)
   }
   return api_array
 }
 
+const {location} = Astro.params
+
 let informacion;
 try {
   const response = await fetch(
-    "https://rickandmortyapi.com/api/character/" + character
+    "https://rickandmortyapi.com/api/location/" + location
   );
   informacion = await response.json();
 } catch (error) {
   console.error(error);
 }
 
-let color;
-if (informacion.status === "Alive") {
-  color = "green";
-} else {
-  color = "red";
-}
 ---
 
 <Principal>
-  <article class="contenedor_character">
-    <div class="informacion_character">
+  <article class="contenedor_location">
+    <div class="informacion_location">
       <picture>
-        <img 
-        src={informacion.image} 
-        alt={informacion.name} 
-        transition:name=`imagen_${informacion.id}` 
+        <img
+          src="../../../../public/Fondo locations.png"
+          alt="Fondo de episodes"
+          transition:name=`imagen_location_${informacion.id}`
         />
       </picture>
       <section class="informacion_principal">
-        <p class="status" style={`background-color:${color}`}>
-          {informacion.status}
-        </p>
-        <p class="text">Name: <span transition:name=
-          `name_${informacion.id}`>{informacion.name}</span></p>
-        <p class="text">status: <span >{informacion.status}</span></p>
-        <p class="text">Species: <span>{informacion.species}</span></p>
-        <p class="text">Gender: <span>{informacion.gender}</span></p>
-        <p class="text">Location: <span>{informacion.location.name}</span></p>
-        <p class="text">Origin: <span>{informacion.origin.name}</span></p>
         <p class="text">
-          API Character: <a href={informacion.url}>Link API</a>
+          Name: <span
+            >{informacion.name}</span
+          >
+        </p>
+        <p class="text">Place: <span>{informacion.type}</span></p>
+        <p class="text">Dimension: <span>{informacion.dimension}</span></p>
+        <p class="text">Created: <span>{informacion.created}</span></p>
+        <p class="text">
+          API Location: <a href={informacion.url}>Link API</a>
         </p>
       </section>
     </div>
 
     <div class="contenedor_paticipaciones">
-      <p class="title">Episodes Appearances</p>
+      <p class="title">Residents</p>
       <div class="participaciones">
         <!-- Agregar las apariciones de cada personaje en este div -->
         {
-          informacion.episode.map((info) => {
-            return <Appearances_episode url={info} />;
+          informacion.residents.map((info) => {
+            return <Appearences_Character url={info} />;
           })
         }
       </div>
     </div>
-    <Boton name="Character" />
+    <Boton name="Location" />
   </article>
 </Principal>
+
 
 <style>
   .contenedor_paticipaciones {
@@ -84,7 +77,6 @@ if (informacion.status === "Alive") {
     align-items: center;
     flex-direction: column;
     width: 100%;
-
   }
 
   article {
@@ -99,7 +91,7 @@ if (informacion.status === "Alive") {
     width: 550px;
   }
 
-  .informacion_character {
+  .informacion_location {
     width: 60%;
     display: flex;
     margin: 0;
@@ -168,15 +160,15 @@ if (informacion.status === "Alive") {
   }
 
   @media screen and (max-width: 980px) {
-    .informacion_character{
+    .informacion_character {
       flex-direction: column;
     }
 
-    picture{
+    picture {
       width: 100%;
     }
 
-    img{
+    img {
       border-radius: 20px 20px 0 0;
     }
   }

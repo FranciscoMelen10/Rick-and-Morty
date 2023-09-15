@@ -1,14 +1,9 @@
 ---
-
 interface Props {
-  name: string;
   url: string;
-  view:boolean;
 }
-const { name,url,view } = Astro.props;
 
-import ContenedorSections from '../contenedor_sections.astro';
-
+const { url } = Astro.props;
 let informacion;
 try {
   const response = await fetch(`${url}`);
@@ -18,43 +13,31 @@ try {
 }
 ---
 
-<ContenedorSections name={name} show={view}>
-  {
-    informacion.results.map((info) => {
-      return (
-      <article class="contenedor_episodes" slot="informacion_api">
-        <div class="contendor_imagenes">
-          <img src="../../../public/Fondo episode.jpg" alt={info.name} transition:name={`imagen_episode_${info.id}`} />
-        </div>
-        <section class="info_episodes">
-          <p class="name">{info.name}</p>
-          <p>{info.air_date}</p>
-          <p>{info.episode}</p>
-        </section>
-        <a href={`../../Episode/Individual/${info.id}`} class="click_more">Click More</a>
-      </article>
-      );
-    })
-  }
-</ContenedorSections>
+<article class="contenedor_episodes" slot="informacion_api">
+  <div class="contendor_imagenes">
+    <img src="../../../public/Fondo episode.jpg " alt={informacion.name} transition:name=`imagen_episode_${informacion.id}`/>
+  </div>
 
-<script>
-
-</script>
+  <section class="info_episodes">
+    <p class="name">{informacion.name}</p>
+    <p>{informacion.air_date}</p>
+    <p>{informacion.episode}</p>
+  </section>
+  <a href=`../../Episode/Individual/${informacion.id}` class="click_more">Click More</a>
+</article>
 
 <style>
-  .contenedor_episodes{
+  .contenedor_episodes {
     background-color: var(--bg_hr);
     border-radius: 20px;
     width: 600px;
     height: 220px;
     position: relative;
-    display: flex;    
+    display: flex;
     align-items: center;
     justify-content: space-between;
     transition: 0.5s ease all;
     font-family: "open sans", sans-serif;
-
   }
 
   .click_more {
@@ -70,15 +53,14 @@ try {
     text-align: center;
     border-radius: 0 10px 10px 0;
     opacity: 0;
-    right: 0;
+    right: -40px;
     text-decoration: none;
     color: var(--letras);
-    transition: 0.5s ease all;
-
   }
 
   .contenedor_episodes:hover .click_more {
     opacity: 1;
+    right: 0;
     text-decoration: underline;
   }
 
@@ -87,36 +69,30 @@ try {
     transform: scale(0.9);
   }
 
-  .contendor_imagenes{
+  .contendor_imagenes {
     width: 50%;
     height: 100%;
   }
 
-  img{
+  img {
     width: 100%;
     height: 100%;
-    border-radius: 20px 0 0 20px; 
+    border-radius: 20px 0 0 20px;
   }
 
-  .info_episodes{
+  .info_episodes {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     width: 40%;
-    margin: 10px;
   }
 
   .name {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 800;
   }
 
-  @media screen and (max-width: 650px) {
-    .name {
-    font-size: 15px;
-    }
-
-    .contenedor_episodes{
-      justify-content: start;
-    }
+  .info_episodes p {
+    width: 50%;
+  }
 </style>

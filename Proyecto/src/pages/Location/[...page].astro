@@ -1,0 +1,55 @@
+---
+import Principal from "../../layout/principal.astro";
+import Paginacion from "../../components/paginacion.astro";
+import LocationComponente from "../../components/Principal/location__componente.astro";
+
+export async function getStaticPaths({ paginate }) {
+  let api = "https://rickandmortyapi.com/api/location";
+
+  let links_api = [];
+  let links;
+
+  for (let index = 1; index <= 7; index++) {
+    links = { pagina: api.concat(`/?page=${index}`) };
+    links_api.push(links);
+  }
+
+  return paginate(links_api, { pageSize: 1 });
+}
+
+
+
+const { page } = Astro.props;
+
+
+console.log(page.data[0].pagina)
+console.log(page)
+
+let informacion;
+try {
+  const response = await fetch(page.data[0].pagina);
+  informacion = await response.json();
+} catch (error) {
+  console.error(error);
+}
+---
+
+
+<Principal>
+  <LocationComponente
+    name="Location"
+    url={page.data[0].pagina}    
+    view={false}
+  />  
+  <article>
+      <Paginacion next_page={page.url.next} last_page={page.url.prev} slot="paginacion"></Paginacion>
+  </article>
+</Principal>
+
+<style>
+  article{
+      display: flex;
+      justify-content: center;
+      margin: 0 0 10vh 0;
+  }
+</style>
