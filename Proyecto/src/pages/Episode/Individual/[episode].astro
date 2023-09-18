@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   const data = await fetch("https://rickandmortyapi.com/api/episode").then(
     (response) => response.json()
   );
-  for (let index = 1; index < data.info.count; index++) {
+  for (let index = 1; index < data.info.count + 1; index++) {
     tempo = { params: { episode: "" + index } };
     api_array.push(tempo);
   }
@@ -31,7 +31,7 @@ try {
 }
 ---
 
-<Principal>
+<Principal title={informacion.name}>
   <article class="contenedor_episode">
     <div class="informacion_episode">
       <picture>
@@ -50,9 +50,6 @@ try {
         <p class="text">Time: <span>{informacion.air_date}</span></p>
         <p class="text">Episode: <span>{informacion.episode}</span></p>
         <p class="text">Created: <span>{informacion.created}</span></p>
-        <p class="text">
-          API Episode: <a href={informacion.url}>Link API</a>
-        </p>
       </section>
     </div>
 
@@ -73,7 +70,7 @@ try {
 
 <style>
   .contenedor_paticipaciones {
-    padding: 20vh 0 0 0;
+    padding: 10vh 0 0 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,7 +80,7 @@ try {
   }
 
   article {
-    padding: 20vh 0;
+    padding: 10vh 0 20vh 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,7 +92,8 @@ try {
   }
 
   .informacion_episode {
-    width: 60%;
+    width: 80%;
+    max-width: 1100px;
     display: flex;
     margin: 0;
     padding: 0;
@@ -104,11 +102,10 @@ try {
   }
 
   .informacion_principal {
-    width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: 10px 40px;
+    justify-content: space-evenly;
+    margin: 40px;
     font-family: sans-serif;
   }
 
@@ -119,16 +116,19 @@ try {
   }
 
   .text {
-    color: var(--letras);
+    color: var(--vrd_clr);
     font-size: 20px;
     font-weight: 900;
     text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+
   }
 
   .text span {
     color: var(--letras);
-    font-weight: 100;
+    font-weight: 400;
     text-transform: capitalize;
+
   }
 
   .status {
@@ -162,9 +162,10 @@ try {
     color: var(--letras);
   }
 
-  @media screen and (max-width: 980px) {
-    .informacion_character {
+  @media screen and (max-width: 950px) {
+    .informacion_episode{
       flex-direction: column;
+      width: 80%;
     }
 
     picture {

@@ -1,4 +1,10 @@
 ---
+interface Props {
+  title:string;
+}
+
+const {title} = Astro.props
+
 import { ViewTransitions } from "astro:transitions";
 
 import Header from "../components/header.astro";
@@ -18,7 +24,8 @@ import Footer from "../components/footer.astro";
       rel="stylesheet"
     />
 
-    <title>Rick and Morty - Francisco Melendez</title>
+    <title>{title}</title>
+    <link rel="icon" href="../../public/Icono.ico">
   </head>
 
   <body>

@@ -1,13 +1,121 @@
 ---
+import Boton from "../components/boton.astro";
 import Principal from "../layout/principal.astro";
-import Charater from "../components/Principal/characters_componente.astro"
-import Episode from "../components/Principal/episode__componente.astro";
-import Location from "../components/Principal/location__componente.astro";
-
 ---
 
-<Principal>
-    <Charater name="Character" url="https://rickandmortyapi.com/api/character" view={true}/>
-    <Location name="Location" url="https://rickandmortyapi.com/api/location" view={true}/>
-    <Episode name="Episode" url="https://rickandmortyapi.com/api/episode" view={true}/>
+<Principal title="Home">
+  <div class="contenedor_principal">
+    <div class="contenedor_character contenedores_internos">
+      <img src="../../public/Main/Fondo_character.jpg" alt="" />
+      <div class="descripcion_character">
+        <p class="title">Characters</p>
+        <p class="descripcion">
+          The characters in "Rick and Morty" are a blend of humans, aliens, and
+          bizarre creatures, each with unique and often eccentric personalities.
+          As the plot progresses, these characters build intricate relationships
+          and find themselves immersed in situations that can be both absurd and
+          potentially dangerous.
+        </p>
+        <Boton name="Character" />
+      </div>
+    </div>
+
+    <div class="contenedor_locations contenedores_internos">
+      <img src="../../public/Main/Fondo_location.jpg" alt="" />
+      <div class="descripcion_character">
+        <p class="title">Locations</p>
+        <p class="descripcion">
+          The locations in "Rick and Morty" encompass a wide array of settings,
+          spanning from distant planets and alternate dimensions to bizarre
+          realms. Each place is distinct and often showcases surreal landscapes
+          or peculiar environments. As the series unfolds, these locations serve
+          as the backdrop for the characters' adventures, offering both
+          fantastical and sometimes perilous scenarios.
+        </p>
+        <Boton name="Location" />
+      </div>
+    </div>
+
+    <div class="contenedor_episode contenedores_internos">
+      <img src="../../public/Main/Fondo_episodes.png" alt="" />
+      <div class="descripcion_character">
+        <p class="title">Episodes</p>
+        <p class="descripcion">
+          "Rick and Morty" is a series that spans multiple seasons, each with
+          its own storyline and set of episodes. Throughout the seasons, viewers
+          witness the increasingly extravagant and often chaotic adventures of
+          Rick and Morty as they explore alternate dimensions, time travel, and
+          confront a variety of cosmic challenges.
+        </p>
+        <Boton name="Episode" />
+      </div>
+    </div>
+  </div>
 </Principal>
+
+<style>
+  .contenedor_principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contenedores_internos {
+    padding: 40px;
+    max-width: 1100px;
+    margin: 15vh 0;
+    color: var(--letras);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 20px;
+  }
+
+  .title {
+    font-size: 2em;
+    margin: 0;
+    font-weight: 800;
+    font-family: "Oswald", sans-serif;
+    color: var(--vrd_clr);
+  }
+
+  .descripcion {
+    font-size: 0.9em;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+
+  .contenedor_character,
+  .contenedor_episode {
+    flex-direction: row-reverse;
+  }
+
+  img {
+    width: 50%;
+    height: 50%;
+    border-radius: 2em;
+  }
+
+  .descripcion_character {
+    width: 40%;
+  }
+
+  @media screen and (max-width: 990px) {
+    img {
+      width: 90%;
+    }
+
+    .contenedores_internos {
+      flex-direction: column;
+    }
+
+    .descripcion_character {
+      width: 90%;
+      margin: 30px 0;
+    }
+
+    .descripcion {
+      font-size: 1.2em;
+    }
+  }
+</style>

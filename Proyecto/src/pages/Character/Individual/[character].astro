@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   let api_array = []
   let tempo 
   const data = await fetch("https://rickandmortyapi.com/api/character").then((response) => response.json());
-  for (let index = 1; index < data.info.count ; index++) {
+  for (let index = 1; index < data.info.count + 1 ; index++) {
     tempo ={params: { character: "" + index }}
     api_array.push(tempo)
   }
@@ -34,7 +34,7 @@ if (informacion.status === "Alive") {
 }
 ---
 
-<Principal>
+<Principal title={informacion.name}>
   <article class="contenedor_character">
     <div class="informacion_character">
       <picture>
@@ -45,19 +45,15 @@ if (informacion.status === "Alive") {
         />
       </picture>
       <section class="informacion_principal">
-        <p class="status" style={`background-color:${color}`}>
+        <span class="status" style={`background-color:${color}`}>
           {informacion.status}
-        </p>
+        </span>
         <p class="text">Name: <span transition:name=
           `name_${informacion.id}`>{informacion.name}</span></p>
-        <p class="text">status: <span >{informacion.status}</span></p>
         <p class="text">Species: <span>{informacion.species}</span></p>
         <p class="text">Gender: <span>{informacion.gender}</span></p>
         <p class="text">Location: <span>{informacion.location.name}</span></p>
         <p class="text">Origin: <span>{informacion.origin.name}</span></p>
-        <p class="text">
-          API Character: <a href={informacion.url}>Link API</a>
-        </p>
       </section>
     </div>
 
@@ -78,7 +74,7 @@ if (informacion.status === "Alive") {
 
 <style>
   .contenedor_paticipaciones {
-    padding: 20vh 0 0 0;
+    padding: 10vh 0 0 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,7 +84,7 @@ if (informacion.status === "Alive") {
   }
 
   article {
-    padding: 20vh 0;
+    padding: 10vh 0 20vh 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,7 +96,8 @@ if (informacion.status === "Alive") {
   }
 
   .informacion_character {
-    width: 60%;
+    width: 80%;
+    max-width: 1100px;
     display: flex;
     margin: 0;
     padding: 0;
@@ -112,8 +109,8 @@ if (informacion.status === "Alive") {
     width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: 10px 40px;
+    justify-content: space-evenly;
+    margin: 40px;
     font-family: sans-serif;
   }
 
@@ -124,20 +121,24 @@ if (informacion.status === "Alive") {
   }
 
   .text {
-    color: var(--letras);
+    color: var(--vrd_clr);
     font-size: 20px;
     font-weight: 900;
     text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+
   }
 
   .text span {
     color: var(--letras);
-    font-weight: 100;
+    font-weight: 400;
     text-transform: capitalize;
+
   }
 
   .status {
     padding: 10px;
+    text-transform: capitalize;
     border-radius: 10px;
     width: fit-content;
     font-weight: 700;
@@ -162,14 +163,15 @@ if (informacion.status === "Alive") {
 
   .title {
     font-size: 36px;
-    font-family: sans-serif;
-    font-weight: 800;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 900;
     color: var(--letras);
   }
 
-  @media screen and (max-width: 980px) {
+  @media screen and (max-width: 990px) {
     .informacion_character{
       flex-direction: column;
+      width: 80%;
     }
 
     picture{
