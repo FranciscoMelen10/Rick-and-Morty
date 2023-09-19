@@ -4,11 +4,11 @@
 
 <footer>
     <div class="contenedor_frm">
-      <form class="form">
+      <form class="form" action="https://formsubmit.co/fmelendezsimplina@gmail.com" method="POST">
         Contact me
-            <input type="text" class="input" placeholder="Account">
-            <textArea placeholder="Message"></textArea>
-            <button>Send</button>
+            <input type="email" class="input" placeholder="Account" name="account" required>
+            <textArea type="text" placeholder="Message" name="message" required></textArea>
+            <button type="submit">Send</button>
         </form>
     </div>
     <div class="div_footer">
@@ -191,5 +191,15 @@
   }
 }
 
+@media screen and (max-width: 990px) {
+  footer{
+    flex-direction: column;
+  }
+
+  footer div{
+    width: 90%;
+    margin: 20px 0;
+  }
+}
 
 </style>

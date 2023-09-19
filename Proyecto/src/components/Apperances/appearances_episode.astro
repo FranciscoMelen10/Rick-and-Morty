@@ -30,7 +30,7 @@ try {
   .contenedor_episodes {
     background-color: var(--bg_hr);
     border-radius: 20px;
-    width: 500px;
+    width: 600px;
     height: 250px;
     position: relative;
     display: flex;
@@ -93,6 +93,37 @@ try {
   }
 
   .info_episodes p {
-    width: 50%;
+    width: 90%;
+  }
+
+  @media screen and (max-width: 550px) {
+    .contenedor_episodes{
+      flex-direction: column;
+      height: fit-content;
+    }
+
+    .contendor_imagenes{
+      width: fit-content;
+      border-radius: 0 10px 10px 0;
+    }
+
+    img{
+      border-radius: 20px 20px 0 0;
+    }
+
+    .info_episodes{
+      width: 90%;
+    }
+    
+    .click_more{
+    padding: 1em 0;
+    color: var(--letras);
+    justify-content: center;
+    height: 2.5em;
+    width: 100%;
+    bottom: 0;
+    border-radius: 0 0 10px 10px;
+    opacity: 0;
+    }
   }
 </style>

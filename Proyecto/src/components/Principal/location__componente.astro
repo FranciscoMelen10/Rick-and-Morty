@@ -114,10 +114,36 @@ try {
     font-weight: 800;
   }
 
-  @media screen and (max-width: 650px) {
-    .name {
-    font-size: 10px;
-  }
+  @media screen and (max-width: 560px) {
+    .contenedor_locations{
+      flex-direction: column;
+      height: fit-content;
+    }
+
+    .contendor_imagenes{
+      width: fit-content;
+      border-radius: 0 10px 10px 0;
+    }
+
+    img{
+      border-radius: 20px 20px 0 0;
+    }
+
+    .info_locations{
+      width: 90%;
+    }
+
+    .click_more{
+    padding: 1em 0;
+    color: var(--letras);
+    justify-content: center;
+    height: 2.5em;
+    width: 100%;
+    bottom: 0;
+    border-radius: 0 0 10px 10px;
+    opacity: 0;
+    }
+  
 }
 
 </style>
