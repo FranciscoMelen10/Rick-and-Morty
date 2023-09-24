@@ -1,21 +1,32 @@
 ---
 import Boton from "../../../components/boton.astro";
 import Principal from "../../../layout/principal.astro";
-import Appearences_Character from "../../../components/Apperances/appearances_character.astro"
+import Appearences_Character from "../../../components/Apperances/appearances_character.astro";
+
+// Parametro que se obtendra de la url "/Location/{name}" para realizar las consultas
+const { location } = Astro.params;
 
 export async function getStaticPaths() {
-  let api_array = []
-  let tempo 
-  const data = await fetch("https://rickandmortyapi.com/api/location").then((response) => response.json());
-  for (let index = 1; index < data.info.count + 1 ; index++) {
-    tempo ={params: { location: "" + index }}
-    api_array.push(tempo)
+  // Almacenara intancias de objetos de la información de todos los lugares donde contendra la rutas dinamicas para que astro los se haga automaticamente haciendo las consultas atravez del id de cada lugar
+  let api_array = [];
+
+  // variable temporal para almacenar de tipo objeto los links de cada página y agregarlo al arreglo "api_array"
+  let tempo;
+
+  // consulta a la api
+  const data = await fetch("https://rickandmortyapi.com/api/location").then(
+    (response) => response.json()
+  );
+  for (let index = 1; index < data.info.count + 1; index++) {
+    tempo = { params: { location: "" + index } };
+    api_array.push(tempo);
   }
-  return api_array
+
+  // retornara todos los links de las paginas de forma dinámica para mostrar todos los datos de los lugares de la api
+  return api_array;
 }
 
-const {location} = Astro.params
-
+// contendra en formato json la api y usarlo afuera del servidor dentro del cliente
 let informacion;
 try {
   const response = await fetch(
@@ -25,7 +36,6 @@ try {
 } catch (error) {
   console.error(error);
 }
-
 ---
 
 <Principal title={informacion.name}>
@@ -40,9 +50,7 @@ try {
       </picture>
       <section class="informacion_principal">
         <p class="text">
-          Name: <span
-            >{informacion.name}</span
-          >
+          Name: <span>{informacion.name}</span>
         </p>
         <p class="text">Place: <span>{informacion.type}</span></p>
         <p class="text">Dimension: <span>{informacion.dimension}</span></p>
@@ -64,7 +72,6 @@ try {
     <Boton name="Location" />
   </article>
 </Principal>
-
 
 <style>
   .contenedor_paticipaciones {
@@ -117,15 +124,13 @@ try {
     font-size: 20px;
     font-weight: 900;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
-
+    font-family: "Montserrat", sans-serif;
   }
 
   .text span {
     color: var(--letras);
     font-weight: 400;
     text-transform: capitalize;
-
   }
 
   .status {
@@ -153,14 +158,14 @@ try {
   }
 
   .title {
-    font-size: 36px;
-    font-family: sans-serif;
+    font-size: 40px;
+    font-family: Get Schwifty;
     font-weight: 800;
-    color: var(--letras);
+    color: var(--vrd_drk);
   }
 
   @media screen and (max-width: 950px) {
-    .informacion_location{
+    .informacion_location {
       flex-direction: column;
       width: 80%;
     }

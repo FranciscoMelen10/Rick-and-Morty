@@ -3,8 +3,11 @@ interface Props {
   url: string;
 }
 
+// url: url de la api para hacer las consultas de los episodios de la serie
 const { url } = Astro.props;
-let informacion;
+
+// contendra en formato json la api y usarlo afuera del servidor dentro del cliente
+let informacion; 
 try {
   const response = await fetch(`${url}`);
   informacion = await response.json();
@@ -15,7 +18,11 @@ try {
 
 <article class="contenedor_episodes" slot="informacion_api">
   <div class="contendor_imagenes">
-    <img src="../../../public/Fondo episode.jpg " alt={informacion.name} transition:name=`imagen_episode_${informacion.id}`/>
+    <img
+      src="../../../public/Fondo episode.jpg "
+      alt={informacion.name}
+      transition:name=`imagen_episode_${informacion.id}`
+    />
   </div>
 
   <section class="info_episodes">
@@ -23,7 +30,9 @@ try {
     <p>{informacion.air_date}</p>
     <p>{informacion.episode}</p>
   </section>
-  <a href=`../../Episode/Individual/${informacion.id}` class="click_more">Click More</a>
+  <a href=`../../Episode/Individual/${informacion.id}` class="click_more"
+    >Click More</a
+  >
 </article>
 
 <style>
@@ -97,33 +106,33 @@ try {
   }
 
   @media screen and (max-width: 550px) {
-    .contenedor_episodes{
+    .contenedor_episodes {
       flex-direction: column;
       height: fit-content;
     }
 
-    .contendor_imagenes{
+    .contendor_imagenes {
       width: fit-content;
       border-radius: 0 10px 10px 0;
     }
 
-    img{
+    img {
       border-radius: 20px 20px 0 0;
     }
 
-    .info_episodes{
+    .info_episodes {
       width: 90%;
     }
-    
-    .click_more{
-    padding: 1em 0;
-    color: var(--letras);
-    justify-content: center;
-    height: 2.5em;
-    width: 100%;
-    bottom: 0;
-    border-radius: 0 0 10px 10px;
-    opacity: 0;
+
+    .click_more {
+      padding: 1em 0;
+      color: var(--letras);
+      justify-content: center;
+      height: 2.5em;
+      width: 100%;
+      bottom: 0;
+      border-radius: 0 0 10px 10px;
+      opacity: 0;
     }
   }
 </style>

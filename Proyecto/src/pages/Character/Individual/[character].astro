@@ -3,20 +3,32 @@ import Principal from "../../../layout/principal.astro";
 import Appearances_episode from "../../../components/Apperances/appearances_episode.astro";
 import Boton from "../../../components/boton.astro";
 
-const {character} = Astro.params
+// Parametro que se obtendra de la url "/Character/{name}" para realizar las consultas
+const { character } = Astro.params;
 
 export async function getStaticPaths() {
-  let api_array = []
-  let tempo 
-  const data = await fetch("https://rickandmortyapi.com/api/character").then((response) => response.json());
-  for (let index = 1; index < data.info.count + 1 ; index++) {
-    tempo ={params: { character: "" + index }}
-    api_array.push(tempo)
+  // Almacenara intancias de objetos de la información de todos los personajes donde contendra la rutas dinamicas para que astro los se haga automaticamente haciendo las consultas atravez del id de cada personaje
+  let api_array = [];
+
+  // variable temporal para almacenar de tipo objeto los links de cada página y agregarlo al arreglo "api_array"
+  let tempo;
+
+  // consulta a la api
+  const data = await fetch("https://rickandmortyapi.com/api/character").then(
+    (response) => response.json()
+  );
+  for (let index = 1; index < data.info.count + 1; index++) {
+    tempo = { params: { character: "" + index } };
+    api_array.push(tempo);
   }
-  return api_array
+
+  // retornara todos los links de las paginas de forma dinámica para mostrar todos los datos de los personajes de la api
+  return api_array;
 }
 
+// contendra en formato json la api y usarlo afuera del servidor dentro del cliente
 let informacion;
+
 try {
   const response = await fetch(
     "https://rickandmortyapi.com/api/character/" + character
@@ -26,6 +38,7 @@ try {
   console.error(error);
 }
 
+// se utilizara para determinar el status de cada personaje y asignarles un diseño unico para identificar si esta vivo (verde) o si esta muerto (rojo)
 let color;
 if (informacion.status === "Alive") {
   color = "green";
@@ -38,18 +51,19 @@ if (informacion.status === "Alive") {
   <article class="contenedor_character">
     <div class="informacion_character">
       <picture>
-        <img 
-        src={informacion.image} 
-        alt={informacion.name} 
-        transition:name=`imagen_${informacion.id}` 
+        <img
+          src={informacion.image}
+          alt={informacion.name}
+          transition:name=`imagen_${informacion.id}`
         />
       </picture>
       <section class="informacion_principal">
         <span class="status" style={`background-color:${color}`}>
           {informacion.status}
         </span>
-        <p class="text">Name: <span transition:name=
-          `name_${informacion.id}`>{informacion.name}</span></p>
+        <p class="text">
+          Name: <span>{informacion.name}</span>
+        </p>
         <p class="text">Species: <span>{informacion.species}</span></p>
         <p class="text">Gender: <span>{informacion.gender}</span></p>
         <p class="text">Location: <span>{informacion.location.name}</span></p>
@@ -80,7 +94,6 @@ if (informacion.status === "Alive") {
     align-items: center;
     flex-direction: column;
     width: 100%;
-
   }
 
   article {
@@ -106,7 +119,6 @@ if (informacion.status === "Alive") {
   }
 
   .informacion_principal {
-    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -125,15 +137,13 @@ if (informacion.status === "Alive") {
     font-size: 20px;
     font-weight: 900;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
-
+    font-family: "Montserrat", sans-serif;
   }
 
   .text span {
     color: var(--letras);
     font-weight: 400;
     text-transform: capitalize;
-
   }
 
   .status {
@@ -162,28 +172,28 @@ if (informacion.status === "Alive") {
   }
 
   .title {
-    font-size: 36px;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 900;
-    color: var(--letras);
+    font-size: 40px;
+    font-family: Get Schwifty;
+    font-weight: 800;
+    color: var(--vrd_drk);
   }
 
   @media screen and (max-width: 990px) {
-    .informacion_character{
+    .informacion_character {
       flex-direction: column;
       width: 80%;
     }
 
-    picture{
+    picture {
       width: 100%;
     }
 
-    img{
+    img {
       border-radius: 20px 20px 0 0;
     }
 
-    .title{
-      font-size: 20px;
+    .title {
+      font-size: 25px;
     }
   }
 </style>

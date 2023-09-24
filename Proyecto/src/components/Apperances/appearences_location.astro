@@ -3,8 +3,11 @@ interface Props {
   url: string;
 }
 
+// url: url de la api para hacer las consultas de los lugares de la serie
 const { url } = Astro.props;
-let informacion;
+
+// contendra en formato json la api y usarlo afuera del servidor dentro del cliente
+let informacion; 
 try {
   const response = await fetch(`${url}`);
   informacion = await response.json();
@@ -14,32 +17,36 @@ try {
 ---
 
 <article class="contenedor_locations" slot="informacion_api">
-    <div class="contendor_imagenes">
-      <img src="../../../public/Fondo locations.png " alt={informacion.name} transition:name=`imagen_location_${informacion.id}` />
-    </div>
+  <div class="contendor_imagenes">
+    <img
+      src="../../../public/Fondo locations.png "
+      alt={informacion.name}
+      transition:name=`imagen_location_${informacion.id}`
+    />
+  </div>
 
-    <div class="info_locations">
-      <p class="name">{informacion.name}</p>
-      <p>{informacion.type}</p>
-      <p>{informacion.dimension}</p>
-    </div>
-    <a href={`../../Location/Individual/${informacion.id}`} class="click_more">Click More</a>
-  </article>
-
+  <div class="info_locations">
+    <p class="name">{informacion.name}</p>
+    <p>{informacion.type}</p>
+    <p>{informacion.dimension}</p>
+  </div>
+  <a href={`../../Location/Individual/${informacion.id}`} class="click_more"
+    >Click More</a
+  >
+</article>
 
 <style>
-  .contenedor_locations{
+  .contenedor_locations {
     background-color: var(--bg_hr);
     border-radius: 20px;
     width: 500px;
     height: 250px;
     position: relative;
-    display: flex;    
+    display: flex;
     align-items: center;
     justify-content: space-between;
     transition: 0.5s ease all;
     font-family: "open sans", sans-serif;
-
   }
 
   .click_more {
@@ -59,15 +66,11 @@ try {
     text-decoration: none;
     color: var(--letras);
     transition: 0.5s ease all;
-
-
-
   }
 
   .contenedor_locations:hover .click_more {
     opacity: 1;
     text-decoration: underline;
-
   }
 
   .contenedor_locations:hover {
@@ -75,23 +78,23 @@ try {
     transform: scale(0.9);
   }
 
-  .contendor_imagenes{
+  .contendor_imagenes {
     width: 50%;
     height: 100%;
   }
 
-  img{
+  img {
     width: 100%;
     height: 100%;
-    border-radius: 20px 0 0 20px; 
+    border-radius: 20px 0 0 20px;
   }
 
-  .info_locations{
+  .info_locations {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     width: 40%;
-    margin: 20px;  
+    margin: 20px;
   }
 
   .name {
@@ -101,8 +104,7 @@ try {
 
   @media screen and (max-width: 650px) {
     .name {
-    font-size: 10px;
+      font-size: 10px;
+    }
   }
-}
-
 </style>

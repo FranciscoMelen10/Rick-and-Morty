@@ -1,87 +1,78 @@
 ---
 interface Props {
-  next_page: string;
-  last_page: string;
+  size_page: number;
+  current: string;
+  name: string;
 }
 
-const { next_page, last_page } = Astro.props;
+const { size_page, current, name } = Astro.props;
 
-let existe_next = false;
+let paginacion = [];
+let links;
+let localizacion;
 
-if (next_page !== undefined) {
-  existe_next = true;
-}
-
-let existe_last = false;
-
-if (last_page !== undefined) {
-  existe_last = true;
+for (let index = 1; index <= size_page; index++) {
+  links = { pagina: `/${name}/${index}`};
+  paginacion.push(links);
 }
 ---
 
-
-
-<div>
-    {
-      existe_last && 
-        <a href={last_page} class="links">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-          height="40"
-          viewBox="0 0 24 24"
-            style="fill: rgb(255, 255, 255); --darkreader-inline-fill: #e8e6e3;"
-            data-darkreader-inline-fill=""
-          >
-            <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
-          </svg>
-        </a>
-    }
-    
-    {
-      existe_next && 
-      <a href={next_page} class="links">
-          <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          viewBox="0 0 24 24"
-          style="fill: rgb(255, 255, 255); --darkreader-inline-fill: #e8e6e3;"
-          data-darkreader-inline-fill=""
-          ><path
-            d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
-          ></path></svg>
-        </a>
-    }
+<div class="contenedor__paginacion">
+  {
+    paginacion.map((info, index) => {
+      if (index === 0) {
+        localizacion = (current === `/${name}`) ? "activate" : "";
+        return (
+          <a href=`/${name}` class=` links ${localizacion}` >
+            {index + 1}
+          </a>
+        );
+      } 
+      else {
+        localizacion = (current === info.pagina) ? "activate" : "";
+        return (
+          <a href={info.pagina} class=` links ${localizacion}` >
+            {index + 1}
+          </a>
+        );
+      }
+    })
+  }
 </div>
 
 <style>
-  div{
+  .contenedor__paginacion {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     padding: 20px;
     border-radius: 20px;
+    margin: 5vh 0;
+    width: 80%;
+    gap: 15px;
   }
 
   .links {
     background: var(--bg_hr);
+    width: 20px;
+    text-align: center;
+    padding: 5px;
     border: none;
     border-radius: 5px;
     font-weight: bold;
     letter-spacing: 5px;
-    text-transform: uppercase;
     color: var(--vrd_drk);
+    text-decoration: none;
     transition: all 1000ms;
-    font-size: 15px;
     position: relative;
     overflow: hidden;
     outline: 2px solid var(--vrd_drk);
-    margin:10px;
   }
 
-  .links:hover {
-    color: #ffffff;
+  .links:hover, .activate {
+    color: #000000;
     transform: scale(1.1);
+    background: var(--vrd_drk);
     outline: 2px solid var(--vrd_drk);
     box-shadow: 4px 5px 17px -4px var(--vrd_drk);
   }
@@ -100,5 +91,11 @@ if (last_page !== undefined) {
 
   .links:hover::before {
     width: 100%;
+  }
+
+  @media screen and (max-width: 990px) {
+    .links{
+
+    }
   }
 </style>

@@ -1,5 +1,5 @@
 <header>
-  <div>Rick and Morty</div>
+  <p>Rick and Morty</p>
   <nav>
     <a href="/" class="links_nav">
       <svg
@@ -16,7 +16,7 @@
       <p>Home</p>
     </a>
 
-    <a  href="/Character" class="links_nav">
+    <a href="/Character" class="links_nav">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="30"
@@ -48,7 +48,7 @@
       <p>Locations</p>
     </a>
 
-    <a  href="/Episode" class="links_nav">
+    <a href="/Episode" class="links_nav">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="30"
@@ -78,16 +78,16 @@
     font-family: Get Schwifty;
   }
 
-  div {
+  p {
     margin: 0 0 0 20px;
     font-size: 30px;
-    color: var(--vrd_clr);
+    color: var(--vrd_drk);
   }
 
   nav {
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
   }
 
   nav p {
@@ -97,7 +97,6 @@
     border-radius: 20px;
     margin: auto;
     padding: 10px;
-
   }
 
   .links_nav {
@@ -122,16 +121,15 @@
   }
 
   @media screen and (max-width: 950px) {
-    header{
+    header {
       flex-direction: column;
       padding: 30px 0;
       justify-content: flex-start;
     }
 
-    nav{
+    nav {
       margin: 20px 0;
     }
-
   }
 
   @media screen and (max-width: 660px) {
@@ -139,7 +137,7 @@
       border-radius: 100%;
     }
 
-    nav p{
+    nav p {
       display: none;
     }
   }

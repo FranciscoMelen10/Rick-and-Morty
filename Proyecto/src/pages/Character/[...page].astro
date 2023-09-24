@@ -3,10 +3,17 @@ import Principal from "../../layout/principal.astro";
 import CharactersComponente from "../../components/Principal/characters_componente.astro";
 import Paginacion from "../../components/paginacion.astro";
 
+// Parametro que se obtendra de la url "/Character/{page}" para realizar la paginación de cada personaje
+const { page } = Astro.props;
+
 export async function getStaticPaths({ paginate }) {
+  // Api de rick y morty (personajes)
   let api = "https://rickandmortyapi.com/api/character";
 
+  // Almacenara intancias de objetos de los links del total de páginas que contendra la rutas dinamicas para que astro los se haga automaticamente
   let links_api = [];
+
+  // variable temporal para almacenar de tipo objeto los links de cada página y agregarlo al arreglo "links_api"
   let links;
 
   for (let index = 1; index <= 42; index++) {
@@ -14,18 +21,13 @@ export async function getStaticPaths({ paginate }) {
     links_api.push(links);
   }
 
+  // paginacion de todos los personajes de la api
   return paginate(links_api, { pageSize: 1 });
 }
 
-
-
-const { page } = Astro.props;
-
-
-console.log(page.data[0].pagina)
-console.log(page)
-
+// contendra en formato json la api y usarlo afuera del servidor dentro del cliente
 let informacion;
+
 try {
   const response = await fetch(page.data[0].pagina);
   informacion = await response.json();
@@ -34,18 +36,22 @@ try {
 }
 ---
 
-
 <Principal title="Characters">
-  <CharactersComponente name="Character" url={page.data[0].pagina} view={false}></CharactersComponente>
+  <CharactersComponente url={page.data[0].pagina} />
   <article>
-      <Paginacion next_page={page.url.next} last_page={page.url.prev} slot="paginacion"></Paginacion>
+    <Paginacion
+      slot="paginacion"
+      size_page={page.lastPage}
+      current={page.url.current}
+      name="Character"
+    />
   </article>
 </Principal>
 
 <style>
-  article{
-      display: flex;
-      justify-content: center;
-      margin: 0 0 10vh 0;
+  article {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 10vh 0;
   }
 </style>

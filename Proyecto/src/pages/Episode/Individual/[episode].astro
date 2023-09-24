@@ -1,13 +1,19 @@
 ---
 import Principal from "../../../layout/principal.astro";
-import EpisodeComponente from "../../../components/Principal/episode__componente.astro";
-import ParticipacionesCap from "../../../components/Apperances/appearances_episode.astro";
 import Boton from "../../../components/boton.astro";
 import AppearancesCharacter from "../../../components/Apperances/appearances_character.astro";
 
+// Parametro que se obtendra de la url "/Episode/{name}" para realizar las consultas
+const { episode } = Astro.params;
+
 export async function getStaticPaths() {
+  // Almacenara intancias de objetos de la información de todos los episodios donde contendra la rutas dinamicas para que astro los se haga automaticamente haciendo las consultas atravez del id de cada episodio
   let api_array = [];
+
+  // variable temporal para almacenar de tipo objeto los links de cada página y agregarlo al arreglo "api_array"
   let tempo;
+
+  // consulta a la api
   const data = await fetch("https://rickandmortyapi.com/api/episode").then(
     (response) => response.json()
   );
@@ -15,11 +21,12 @@ export async function getStaticPaths() {
     tempo = { params: { episode: "" + index } };
     api_array.push(tempo);
   }
+
+  // retornara todos los links de las paginas de forma dinámica para mostrar todos los datos de los episodios de la api
   return api_array;
 }
 
-const { episode } = Astro.params;
-
+// contendra en formato json la api y usarlo afuera del servidor dentro del cliente
 let informacion;
 try {
   const response = await fetch(
@@ -43,9 +50,7 @@ try {
       </picture>
       <section class="informacion_principal">
         <p class="text">
-          Name: <span
-            >{informacion.name}</span
-          >
+          Name: <span>{informacion.name}</span>
         </p>
         <p class="text">Time: <span>{informacion.air_date}</span></p>
         <p class="text">Episode: <span>{informacion.episode}</span></p>
@@ -76,7 +81,6 @@ try {
     align-items: center;
     flex-direction: column;
     width: 100%;
-
   }
 
   article {
@@ -120,15 +124,13 @@ try {
     font-size: 20px;
     font-weight: 900;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
-
+    font-family: "Montserrat", sans-serif;
   }
 
   .text span {
     color: var(--letras);
     font-weight: 400;
     text-transform: capitalize;
-
   }
 
   .status {
@@ -156,14 +158,14 @@ try {
   }
 
   .title {
-    font-size: 36px;
-    font-family: sans-serif;
+    font-size: 40px;
+    font-family: Get Schwifty;
     font-weight: 800;
-    color: var(--letras);
+    color: var(--vrd_drk);
   }
 
   @media screen and (max-width: 950px) {
-    .informacion_episode{
+    .informacion_episode {
       flex-direction: column;
       width: 80%;
     }

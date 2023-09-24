@@ -3,9 +3,11 @@ interface Props {
   url: string;
 }
 
+// url: url de la api para hacer las consultas de los personajes de la serie
 const { url } = Astro.props;
-let informacion;
-let color;
+
+// contendra en formato json la api y usarlo afuera del servidor dentro del cliente
+let informacion; 
 try {
   const response = await fetch(`${url}`);
   informacion = await response.json();
@@ -13,6 +15,7 @@ try {
   console.error(error);
 }
 
+let color; // se utilizara para determinar el status de cada personaje y asignarles un diseño unico para identificar si esta vivo (verde) o si esta muerto (rojo)
 if (informacion.status === "Alive") {
   color = "green";
 } else {
@@ -20,31 +23,30 @@ if (informacion.status === "Alive") {
 }
 ---
 
-  <article
-    class="contenedor_character"
-    slot="informacion_api"
-    id={informacion.id}
+<article
+  class="contenedor_character"
+  slot="informacion_api"
+  id={informacion.id}
+>
+  <img
+    src={informacion.image}
+    alt=`Personaje_${informacion.name}`
+    transition:name=`imagen_${informacion.id}`
+  />
+  <section class="info_character">
+    <p class="name" transition:name=`name_${informacion.id}`>
+      {informacion.name}
+    </p>
+    <p class="status" style={`background-color:${color}`}>
+      {informacion.status}
+    </p>
+  </section>
+  <a href=`../../Character/Individual/${informacion.id}` class="click_more"
+    >Click More</a
   >
-    <img
-      src={informacion.image}
-      alt=`Personaje_${informacion.name}`
-      transition:name=`imagen_${informacion.id}`
-    />
-    <section class="info_character">
-      <p class="name" transition:name=`name_${informacion.id}`>
-        {informacion.name}
-      </p>
-      <p class="status" style={`background-color:${color}`}>
-        {informacion.status}
-      </p>
-    </section>
-    <a href=`../../Character/Individual/${informacion.id}` class="click_more"
-      >Click More</a
-    >
-  </article>
+</article>
 
 <style>
-  
   .contenedor_character {
     background-color: var(--bg_hr);
     border-radius: 20px;
@@ -72,7 +74,7 @@ if (informacion.status === "Alive") {
     font-weight: 800;
   }
 
-  .info_character{
+  .info_character {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -80,7 +82,7 @@ if (informacion.status === "Alive") {
     height: 150px;
   }
 
-  .info_character p{
+  .info_character p {
     margin: 10px;
   }
 
@@ -102,7 +104,6 @@ if (informacion.status === "Alive") {
     margin: 0;
     position: absolute;
     opacity: 0;
-
   }
 
   .contenedor_character:hover .click_more {

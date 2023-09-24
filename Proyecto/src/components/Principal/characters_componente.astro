@@ -1,57 +1,68 @@
 ---
+import ContenedorSections from "../contenedor_sections.astro";
 
 interface Props {
-  name: string;
   url: string;
-  view:boolean;
 }
-const { name,url,view } = Astro.props;
 
-import ContenedorSections from '../contenedor_sections.astro';
+// url: url de la api para hacer las consultas de los personajes de la serie
+const { url } = Astro.props;
 
+// contendra en formato json la api y usarlo afuera del servidor dentro del cliente
 let informacion;
-let color;
+
 try {
   const response = await fetch(`${url}`);
   informacion = await response.json();
 } catch (error) {
   console.error(error);
 }
+
+// se utilizara para determinar el status de cada personaje y asignarles un diseño unico para identificar si esta vivo (verde) o si esta muerto (rojo)
+let color;
+if (informacion.status === "Alive") {
+  color = "green";
+} else {
+  color = "red";
+}
 ---
 
-<ContenedorSections name={name} show={view}>
-{
-  informacion.results.map((info) => {
-    if (info.status === "Alive") {
-      color = "green";
-    } else {
-      color = "red";
-    }
+<ContenedorSections name="Character" show={false}>
+  {
+    informacion.results.map((info) => {
+      if (info.status === "Alive") {
+        color = "green";
+      } else {
+        color = "red";
+      }
 
-    return (
-      <article class="contenedor_character" slot="informacion_api"  id={info.id}>
-        <img src={info.image} alt={`Personaje_${info.name}`} transition:name={`imagen_${info.id}`} />
-        <section class="info_character">
-          <p class="name" transition:name={`name_${info.id}`} >{info.name}</p>
-          <p class="status" style={`background-color:${color}`} >
-            {info.status} 
-          </p>
-        </section>
-        <a href= {`../../Character/Individual/${info.id}`} class="click_more">Click More</a>
-      </article>
-    );
-  })
-}
+      return (
+        <article
+          class="contenedor_character"
+          slot="informacion_api"
+          id={info.id}
+        >
+          <img
+            src={info.image}
+            alt={`Personaje_${info.name}`}
+            transition:name={`imagen_${info.id}`}
+          />
+          <section class="info_character">
+            <p class="name">{info.name}</p>
+            <p class="status" style={`background-color:${color}`}>
+              {info.status}
+            </p>
+          </section>
+          <a href={`../../Character/Individual/${info.id}`} class="click_more">
+            Click More
+          </a>
+        </article>
+      );
+    })
+  }
 </ContenedorSections>
 
-
-<script>
-
-</script>
-
 <style>
-
-
   .contenedor_character {
     background-color: var(--bg_hr);
     border-radius: 20px;
@@ -79,7 +90,7 @@ try {
     font-weight: 800;
   }
 
-  .info_character{
+  .info_character {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -87,7 +98,7 @@ try {
     height: 150px;
   }
 
-  .info_character p{
+  .info_character p {
     margin: 10px;
   }
 
@@ -109,7 +120,6 @@ try {
     margin: 0;
     position: absolute;
     opacity: 0;
-
   }
 
   .contenedor_character:hover .click_more {

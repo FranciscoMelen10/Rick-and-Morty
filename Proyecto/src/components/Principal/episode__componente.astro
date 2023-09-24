@@ -1,15 +1,16 @@
 ---
+import ContenedorSections from "../contenedor_sections.astro";
 
 interface Props {
-  name: string;
   url: string;
-  view:boolean;
 }
-const { name,url,view } = Astro.props;
 
-import ContenedorSections from '../contenedor_sections.astro';
+// url: url de la api para hacer las consultas de los episodios de la serie
+const { url } = Astro.props;
 
+// contendra en formato json la api y usarlo afuera del servidor dentro del cliente
 let informacion;
+
 try {
   const response = await fetch(`${url}`);
   informacion = await response.json();
@@ -18,43 +19,44 @@ try {
 }
 ---
 
-<ContenedorSections name={name} show={view}>
+<ContenedorSections name="Episode" show={false}>
   {
     informacion.results.map((info) => {
       return (
-      <article class="contenedor_episodes" slot="informacion_api">
-        <div class="contendor_imagenes">
-          <img src="../../../public/Fondo episode.jpg" alt={info.name} transition:name={`imagen_episode_${info.id}`} />
-        </div>
-        <section class="info_episodes">
-          <p class="name">{info.name}</p>
-          <p>{info.air_date}</p>
-          <p>{info.episode}</p>
-        </section>
-        <a href={`../../Episode/Individual/${info.id}`} class="click_more">Click More</a>
-      </article>
+        <article class="contenedor_episodes" slot="informacion_api">
+          <div class="contendor_imagenes">
+            <img
+              src="../../../public/Fondo episode.jpg"
+              alt={info.name}
+              transition:name={`imagen_episode_${info.id}`}
+            />
+          </div>
+          <section class="info_episodes">
+            <p class="name">{info.name}</p>
+            <p>{info.air_date}</p>
+            <p>{info.episode}</p>
+          </section>
+          <a href={`../../Episode/Individual/${info.id}`} class="click_more">
+            Click More
+          </a>
+        </article>
       );
     })
   }
 </ContenedorSections>
 
-<script>
-
-</script>
-
 <style>
-  .contenedor_episodes{
+  .contenedor_episodes {
     background-color: var(--bg_hr);
     border-radius: 20px;
     width: 550px;
     height: 250px;
     position: relative;
-    display: flex;    
+    display: flex;
     align-items: center;
     justify-content: space-between;
     transition: 0.5s ease all;
     font-family: "open sans", sans-serif;
-
   }
 
   .click_more {
@@ -74,7 +76,6 @@ try {
     text-decoration: none;
     color: var(--letras);
     transition: 0.5s ease all;
-
   }
 
   .contenedor_episodes:hover .click_more {
@@ -87,18 +88,18 @@ try {
     transform: scale(0.9);
   }
 
-  .contendor_imagenes{
+  .contendor_imagenes {
     width: 50%;
     height: 100%;
   }
 
-  img{
+  img {
     width: 100%;
     height: 100%;
-    border-radius: 20px 0 0 20px; 
+    border-radius: 20px 0 0 20px;
   }
 
-  .info_episodes{
+  .info_episodes {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -112,34 +113,33 @@ try {
   }
 
   @media screen and (max-width: 560px) {
-    .contenedor_episodes{
+    .contenedor_episodes {
       flex-direction: column;
       height: fit-content;
     }
 
-    .contendor_imagenes{
+    .contendor_imagenes {
       width: fit-content;
       border-radius: 0 10px 10px 0;
     }
 
-    img{
+    img {
       border-radius: 20px 20px 0 0;
     }
 
-    .info_episodes{
+    .info_episodes {
       width: 90%;
     }
 
-    .click_more{
-    padding: 1em 0;
-    color: var(--letras);
-    justify-content: center;
-    height: 2.5em;
-    width: 100%;
-    bottom: 0;
-    border-radius: 0 0 10px 10px;
-    opacity: 0;
+    .click_more {
+      padding: 1em 0;
+      color: var(--letras);
+      justify-content: center;
+      height: 2.5em;
+      width: 100%;
+      bottom: 0;
+      border-radius: 0 0 10px 10px;
+      opacity: 0;
     }
-  
-}
+  }
 </style>

@@ -1,11 +1,18 @@
 ---
+import BotonMore from "./boton.astro";
+
 interface Props {
   name: string;
   show: boolean;
 }
-const { name, show } = Astro.props;
 
-import BotonMore from "./boton.astro";
+/*
+  name: nombre de la sección de donde fue llamado para colocarlo como título y hacerlo de forma automática
+
+  show: booleano que determinara si aparecera el boton en las sección cuando se ha necesario
+*/
+
+const { name, show } = Astro.props;
 ---
 
 <section class="contenedor_principal">
@@ -40,12 +47,12 @@ import BotonMore from "./boton.astro";
     text-align: center;
   }
 
-  .title{
-    font-size: 36px;
-    font-family: sans-serif;
+  .title {
+    font-size: 50px;
+    font-family: Get Schwifty;
     font-weight: 800;
     text-align: center;
-    color: var(--letras);
+    color: var(--vrd_clr);
+    margin-bottom: 100px;
   }
-
 </style>
